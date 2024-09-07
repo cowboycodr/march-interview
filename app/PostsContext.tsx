@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import React, { createContext, useState, useContext, useEffect } from 'react'
+import React, { createContext, useState, useContext, useEffect } from 'react';
 
 export interface Post {
   id: number;
@@ -23,23 +23,23 @@ export function PostsProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(response => response.json())
-      .then(data => setPosts(data))
+      .then((response) => response.json())
+      .then((data) => setPosts(data));
   }, []);
 
   const addPost = (newPost: Post) => {
-    setPosts(prevPosts => [newPost, ...prevPosts]);
-  }
+    setPosts((prevPosts) => [newPost, ...prevPosts]);
+  };
 
   const updatePost = (updatedPost: Post) => {
-    setPosts(prevPosts => prevPosts.map(post => 
-      post.id === updatedPost.id ? updatedPost : post
-    ));
-  }
+    setPosts((prevPosts) =>
+      prevPosts.map((post) => (post.id === updatedPost.id ? updatedPost : post))
+    );
+  };
 
   const deletePost = (id: number) => {
-    setPosts(prevPosts => prevPosts.filter(post => post.id !== id));
-  }
+    setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
+  };
 
   return (
     <PostsContext.Provider value={{ posts, addPost, updatePost, deletePost }}>
